@@ -42,6 +42,7 @@ function startPomodoroSetup() {
                     console.log('\nCustomizable Pomodoro Timer Setup Complete!');
                     showCommandPrompt();
                     console.log('Press "Enter" to start your first work session.');
+                    rl.removeAllListeners('line');
 
                     rl.once('line', () => {
                         pomodoro.start(); // Start the timer
