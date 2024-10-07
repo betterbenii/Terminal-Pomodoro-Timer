@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 });
 
 function showCommandPrompt() {
-    console.log('Enter "p" to pause, "r" to resume, "s" to stop, "x" to reset, or "history" to view session history. Type "help" to see all commands.');
+    console.log('Enter "p" to pause, "r" to resume, "s" to stop, "x" to reset, "help" to available commands, or "history" to view session history. Type "stats" to see your Pomodoro statistics.');
 }
 
 function showHelp() {
@@ -20,22 +20,37 @@ Available Commands:
 - "s": Stop the current session and restart.
 - "x": Reset the timer to the original settings.
 - "history": View the session history from the file.
+- "stats": View the total work time, break time, and completed Pomodoro sessions.
 - "help": Display this help message.
+   `);
+}
+
+// Function to display Pomodoro statistics (total work time, total break time, completed sessions)
+function showStats(pomodoro) {
+    console.log(`
+    --- Pomodoro Statistics ---
+    Total Work Time: ${Math.floor(pomodoro.totalWorkTime / 60)} minutes
+    Total Break Time: ${Math.floor(pomodoro.totalBreakTime / 60)} minutes
+    Completed Pomodoro Sessions: ${pomodoro.completedPomodoroSessions}
     `);
 }
 
 function startPomodoroSetup() {
     console.log('\nWelcome to the Pomodoro Timer setup!');
     
+    // First input: work duration
     rl.question('Enter work duration in minutes (default is 25): ', (workInput) => {
         const workDuration = parseInt(workInput) * 60 || 25 * 60;
 
+        // Second input: short break duration
         rl.question('Enter short break duration in minutes (default is 5): ', (shortBreakInput) => {
             const shortBreakDuration = parseInt(shortBreakInput) * 60 || 5 * 60;
 
+            // Third input: long break duration
             rl.question('Enter long break duration in minutes (default is 15): ', (longBreakInput) => {
                 const longBreakDuration = parseInt(longBreakInput) * 60 || 15 * 60;
 
+                // Fourth input: cycles
                 rl.question('Enter number of cycles before a long break (default is 4): ', (cyclesInput) => {
                     const cycles = parseInt(cyclesInput) || 4;
 
@@ -82,8 +97,11 @@ function setupCommandListeners(pomodoro) {
             case 's':
                 pomodoro.stop();
                 break;
-            case 'x':
+                case 'x':
                 pomodoro.reset();
+                break;
+            case 'stats':  // New command to display stats
+                showStats(pomodoro);
                 break;
             case 'history':
                 fs.readFile('pomodoro_history.txt', 'utf8', (err, data) => {
