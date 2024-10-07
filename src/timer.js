@@ -128,7 +128,7 @@ class PomodoroTimer {
                 console.log('Starting a new session...');
                 this.startNewSessionCallback();
             } else if (response === 'N') {
-                console.log('Thank you for using this timer!');
+                console.log('\nThank you for using this timer!\n');
                 this.rl.close();
                 process.exit(0);
             } else {

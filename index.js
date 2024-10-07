@@ -2,13 +2,24 @@ const readline = require('readline');
 const PomodoroTimer = require('./src/timer');
 
 // Keep a persistent readline interface
-let rl = readline.createInterface({
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
 function showCommandPrompt() {
-    console.log('Enter "p" to pause, "r" to resume, "s" to stop, or "x" to reset.');
+    console.log('Enter "p" to pause, "r" to resume, "s" to stop, or "x" to reset. Type "help" to see all commands.');
+}
+
+function showHelp() {
+    console.log(`
+Available Commands:
+- "p": Pause the current session.
+- "r": Resume the paused session.
+- "s": Stop the current session and restart.
+- "x": Reset the timer to the original settings.
+- "help": Display this help message.
+    `);
 }
 
 function startPomodoroSetup() {
@@ -39,11 +50,11 @@ function startPomodoroSetup() {
                         startPomodoroSetup // Callback to restart after stop
                     );
 
-                    console.log('\nCustomizable Pomodoro Timer Setup Complete!');
+                    console.log('\nCustomizable Pomodoro Timer Setup Complete!\n');
                     showCommandPrompt();
                     console.log('Press "Enter" to start your first work session.');
-                    rl.removeAllListeners('line');
 
+                    rl.removeAllListeners('line'); // Ensure no duplicate listeners
                     rl.once('line', () => {
                         pomodoro.start(); // Start the timer
                         setupCommandListeners(pomodoro); // Attach command listeners after start
@@ -60,6 +71,9 @@ function setupCommandListeners(pomodoro) {
     
     rl.on('line', (input) => {
         const command = input.trim().toLowerCase();
+        if (!command){
+            return; //if there is no command input do nothing to avoid triggering the 'unknown command' log
+        }
         switch (command) {
             case 'p':
                 pomodoro.pause();
@@ -73,8 +87,12 @@ function setupCommandListeners(pomodoro) {
             case 'x':
                 pomodoro.reset();
                 break;
+            case 'help':
+                showHelp();
+                break;
             default:
-                console.log('Unknown command. Use "p" to pause, "r" to resume, "s" to stop, or "x" to reset.');
+               
+                console.log('Unknown command. Type "help" to see all available commands.');
                 showCommandPrompt();
         }
     });
