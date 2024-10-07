@@ -1,43 +1,8 @@
 
 Session: Work
-Date: 10/7/2024, 3:34:51 PM
+Date: 10/7/2024, 5:17:18 PM
 Duration: 2 minutes
 Total Work Time: 2 minutes
 Total Break Time: 0 minutes
-Completed Pomodoro Sessions: 1
----
-Session: Work
-Date: 10/7/2024, 3:37:59 PM
-Duration: 2 minutes
-Total Work Time: 4 minutes
-Total Break Time: 0 minutes
-Completed Pomodoro Sessions: 2
----
-Session: Break
-Date: 10/7/2024, 3:40:04 PM
-Duration: 2 minutes
-Total Work Time: 4 minutes
-Total Break Time: 2 minutes
-Completed Pomodoro Sessions: 2
----
-Session: Work
-Date: 10/7/2024, 3:42:13 PM
-Duration: 2 minutes
-Total Work Time: 6 minutes
-Total Break Time: 2 minutes
-Completed Pomodoro Sessions: 3
----
-Session: Work
-Date: 10/7/2024, 3:44:00 PM
-Duration: 1 minutes
-Total Work Time: 1 minutes
-Total Break Time: 0 minutes
-Completed Pomodoro Sessions: 1
----
-Session: Break
-Date: 10/7/2024, 3:45:23 PM
-Duration: 1 minutes
-Total Work Time: 1 minutes
-Total Break Time: 1 minutes
 Completed Pomodoro Sessions: 1
 ---
