@@ -66,7 +66,7 @@ function loadSavedSettings(callback) {
         const settings = JSON.parse(data);
         console.log("\nSaved Settings:");
         settings.forEach((setting, index) => {
-            console.log(`${index + 1}: Work: ${setting.workDuration / 60} mins, Short Break: ${setting.shortBreak / 60} mins, Long Break: ${setting.longBreak / 60} mins, Cycles: ${setting.cycles}`);
+            console.log(`${index + 1}: Work: ${setting.workDuration / 60} mins, Short Break: ${setting.shortBreakDuration / 60} mins, Long Break: ${setting.longBreakDuration / 60} mins, Cycles: ${setting.cycles}`);
         });
         rl.question('Would you like to load a saved setting? (Y/N) ', (input) => {
             if (input.trim().toUpperCase() === 'Y') {
