@@ -4,5 +4,11 @@
     "shortBreakDuration": 120,
     "longBreakDuration": 120,
     "cycles": 2
+  },
+  {
+    "workDuration": 60,
+    "shortBreakDuration": 60,
+    "longBreakDuration": 60,
+    "cycles": 1
   }
 ]

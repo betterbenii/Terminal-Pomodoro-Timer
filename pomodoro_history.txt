@@ -1,8 +1,13 @@
-
 Session: Work
-Date: 10/7/2024, 5:17:18 PM
-Duration: 2 minutes
-Total Work Time: 2 minutes
+Date: 10/7/2024, 6:10:43 PM
+Duration: 1 minutes
+Total Work Time: 1 minutes
 Total Break Time: 0 minutes
+Completed Pomodoro Sessions: 1
+---Session: Break
+Date: 10/7/2024, 6:11:47 PM
+Duration: 1 minutes
+Total Work Time: 1 minutes
+Total Break Time: 1 minutes
 Completed Pomodoro Sessions: 1
 ---
