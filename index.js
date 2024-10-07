@@ -2,7 +2,7 @@ const readline = require('readline');
 const PomodoroTimer = require('./src/timer');
 
 // Keep a persistent readline interface
-const rl = readline.createInterface({
+let rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
@@ -35,6 +35,7 @@ function startPomodoroSetup() {
                         shortBreakDuration,
                         longBreakDuration,
                         cycles,
+                        rl,  // Pass the readline interface to PomodoroTimer
                         startPomodoroSetup // Callback to restart after stop
                     );
 
@@ -42,7 +43,6 @@ function startPomodoroSetup() {
                     showCommandPrompt();
                     console.log('Press "Enter" to start your first work session.');
 
-                    rl.removeAllListeners('line'); // Clear old listeners
                     rl.once('line', () => {
                         pomodoro.start(); // Start the timer
                         setupCommandListeners(pomodoro); // Attach command listeners after start
@@ -54,7 +54,7 @@ function startPomodoroSetup() {
 }
 
 function setupCommandListeners(pomodoro) {
-    // Clear any previous 'line' listeners before adding new ones
+    // Clear any previous listeners
     rl.removeAllListeners('line');
     
     rl.on('line', (input) => {

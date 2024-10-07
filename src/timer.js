@@ -5,7 +5,7 @@ const player = require('play-sound')({
 });
 
 class PomodoroTimer {
-    constructor(workDuration = 25 * 60, shortBreak = 5 * 60, longBreak = 15 * 60, cycles = 4, startNewSessionCallback) {
+    constructor(workDuration = 25 * 60, shortBreak = 5 * 60, longBreak = 15 * 60, cycles = 4, rl, startNewSessionCallback) {
         this.workDuration = workDuration;
         this.shortBreak = shortBreak;
         this.longBreak = longBreak;
@@ -17,6 +17,7 @@ class PomodoroTimer {
         this.sessionNumber = 1;
         this.intervalId = null;
         this.remainingTime = this.workDuration;
+        this.rl = rl;  // Store the readline instance from index.js
         this.startNewSessionCallback = startNewSessionCallback;
     }
 
@@ -75,12 +76,11 @@ class PomodoroTimer {
                 clearInterval(this.intervalId);
                 this.isRunning = false;
                 this.completeSession();
-                this.sendNotification('Session Ended')
+                this.sendNotification('Session Ended');
             }
         }, 1000);
     }
 
-    
     pause() {
         if (this.isRunning && !this.isPaused) {
             clearInterval(this.intervalId);
@@ -117,24 +117,23 @@ class PomodoroTimer {
         this.remainingTime = this.workDuration;
         console.log('Timer has been reset. Press "Enter" to start again with the same settings.');
 
-        process.stdin.once('data', () => {
+        this.rl.once('line', () => {
             this.start();
         });
     }
-
     promptRestartOrExit() {
-        console.log('Would you like to start a new session? (Y/N)');//use readline here!
-        
-        process.stdin.once('data', (input) => {
+        this.rl.question('Would you like to start a new session? (Y/N) ', (input) => {
             const response = String(input).trim().toUpperCase();
             if (response === 'Y') {
+                console.log('Starting a new session...');
                 this.startNewSessionCallback();
             } else if (response === 'N') {
                 console.log('Thank you for using this timer!');
+                this.rl.close();
                 process.exit(0);
             } else {
                 console.log('Invalid input. Please enter Y or N.');
-                this.promptRestartOrExit();
+                this.promptRestartOrExit();  // Re-prompt if invalid input
             }
         });
     }
@@ -143,7 +142,7 @@ class PomodoroTimer {
         this.isWorking = !this.isWorking;
         this.currentCycle++;
         console.log("\nSession complete. Press 'Enter' to start the next session.");
-        process.stdin.once('data', () => {
+        this.rl.once('line', () => {
             this.start();
         });
     }
